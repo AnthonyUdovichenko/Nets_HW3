@@ -2,6 +2,7 @@ import socket
 from sys import argv
 import struct
 import textwrap
+import time
 
 _, host, port = argv
 
@@ -33,12 +34,14 @@ number = 0
 print('Now you can type messages to server')
 print('Type \'exit\' to close connection')
 
+f = open('inputfile', 'r')
+
 while True:
     try:
-        text = input()
+        text = f.readline()
     except EOFError:
-        text = 'exit'
-    if text == 'exit':
+        text = ''
+    if text == '':
         print('Do you want to close connection? (Y/anything else)')
         try:
             answer = input()
@@ -57,7 +60,7 @@ while True:
                 if req_number >= number + 1:
                     continue
                 sock.send(sent[req_number])
-            except BlockingIOError:
+            except BlockingIOError or ConnectionRefusedError:
                 pass
     split_text = textwrap.fill(text, width=450).split('\n')
     split_text.append('\n')

@@ -8,5 +8,6 @@ RUN apt update -y && \
 WORKDIR /client
 COPY client.py .
 COPY client.sh .
+COPY inputfile .
 
 ENTRYPOINT [ "bash" ]
