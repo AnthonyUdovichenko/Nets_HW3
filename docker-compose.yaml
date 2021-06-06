@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+    server:
+        build: server
+        command: ./server.sh localhost 5005
+        network_mode: host
+    client:
+        build: client
+        command: ./client.sh localhost 5005
+        network_mode: host
